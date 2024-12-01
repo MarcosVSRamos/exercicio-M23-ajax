@@ -1,27 +1,25 @@
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function(){
 
-    const nameElement = document.querySelector('#name');
-    const usernameElement = document.querySelector('#username');
-    const avatarElement = document.querySelector('#avatar');
-    const reposElement = document.querySelector('#repos');
-    const followersElement = document.querySelector('#followers');
-    const followingElement = document.querySelector('#following');
-    const linkElement = document.querySelector('#link');
+    const nameElement = $('#name');
+    const usernameElement = $('#username');
+    const avatarElement = $('#avatar');
+    const reposElement = $('#repos');
+    const followersElement = $('#followers');
+    const followingElement = $('#following');
+    const linkElement = $('#link');
 
-    fetch('https://api.github.com/users/marcosVSRamos')
-        .then(function(res) {
-            return res.json();
-        })
-        .then(function(json) {
+    const endpoint = 'https://api.github.com/users/marcosVSRamos';
+        
+        $.ajax(endpoint).done(function(resposta) {
 
-            nameElement.innerText = json.name;
-            usernameElement.innerText = json.login;
-            avatarElement.src = json.avatar_url;
-            followersElement.innerText = json.followers;
-            followingElement.innerText = json.following;
-            reposElement.innerText = json.public_repos;
-            linkElement.href = json.html_url;
-
+            nameElement.text(resposta.name);
+            usernameElement.text(resposta.login);
+            avatarElement.attr('src', resposta.avatar_url);
+            followersElement.text(resposta.followers);
+            followingElement.text(resposta.following);
+            reposElement.text(resposta.public_repos);
+            linkElement.attr('href', resposta.html_url);
+            
         })
 
 })
